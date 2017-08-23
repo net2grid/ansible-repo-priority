@@ -6,3 +6,11 @@
     regexp: '^failovermethod=priority$'
     replace: '#failovermethod=priority'
   with_items: "{{ repo_priority }}"
+
+- name: Exclude packages from repositories
+  ini_file:
+    path: "/etc/yum.repos.d/{{ item.repo }}"
+    section: "{{ item.section }}"
+    option: exclude
+    value: "{{ item.package }}"
+  with_items: "{{ repo_exclude }}"
