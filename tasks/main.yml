@@ -2,14 +2,14 @@
 # tasks file for net2grid.repo-priority
 - name: Disable priority flags on repositories
   replace:
-    path: "/etc/yum.repos.d/{{ item }}"
+    dest: "/etc/yum.repos.d/{{ item }}"
     regexp: '^failovermethod=priority$'
     replace: '#failovermethod=priority'
   with_items: "{{ repo_priority }}"
 
 - name: Exclude packages from repositories
   ini_file:
-    path: "/etc/yum.repos.d/{{ item.repo }}"
+    dest: "/etc/yum.repos.d/{{ item.repo }}"
     section: "{{ item.section }}"
     option: exclude
     value: "{{ item.package }}"
