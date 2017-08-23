@@ -1,0 +1,9 @@
+---
+# tasks file for net2grid.repo-priority
+- name: Disable priority flags on repositories
+  replace:
+    path: "/etc/yum.repos.d/{{ item }}"
+    regexp: '^failovermethod=priority$'
+    replace: '#failovermethod=priority'
+    backup: yes
+  with_items: "{{ repo_priority }}"
